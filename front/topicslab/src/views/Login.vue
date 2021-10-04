@@ -94,4 +94,7 @@ export default {
 .register-link {
   text-align: center;
 }
+span {
+  color: red;
+}
 </style>
