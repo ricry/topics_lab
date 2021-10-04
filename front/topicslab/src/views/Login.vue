@@ -16,6 +16,9 @@
           </div>
         </div>
         <span>{{message}}</span>
+        <div class="register-link">
+          <router-link to="/Register">ユーザー登録</router-link>
+        </div>
         <div class="p-field">
           <Button icon="pi pi-check" label="Login" v-on:click="login" />
         </div>
@@ -87,5 +90,8 @@ export default {
       width: 100%;
     }
   }
+}
+.register-link {
+  text-align: center;
 }
 </style>

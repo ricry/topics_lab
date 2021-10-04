@@ -1,19 +1,19 @@
 <template>
-  <div id="nav">
-    <router-link to="/">ホーム</router-link> |
-    <template v-if="authenticated">
-      <a>マイページ</a>
-    </template>
-    <template v-else>
-      <router-link to="/login">ログイン</router-link>
-    </template>
-  </div>
-  <div class="content">
-    <router-view/>
-  </div>
-  <div class="copyright">
-    <p><small>&copy; menbers.co</small></p>
-  </div>
+    <div id="nav">
+      <router-link to="/">ホーム</router-link> |
+      <template v-if="authenticated">
+        <a>マイページ</a>
+      </template>
+      <template v-else>
+        <router-link to="/login">ログイン</router-link>
+      </template>
+    </div>
+    <div class="content">
+      <router-view/>
+    </div>
+    <div class="copyright">
+      <p><small>&copy; menbers.co</small></p>
+    </div>
 </template>
 
 <script>
@@ -74,5 +74,6 @@ body {
   text-align: center;
   background-color: black;
   color: white;
+  bottom: 0;
 }
 </style>
