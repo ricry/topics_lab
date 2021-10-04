@@ -12,7 +12,7 @@
     <router-view/>
   </div>
   <div class="copyright">
-    <p><small>&copy; menbers.co</small></p>
+    <p><small>&copy; members.co</small></p>
   </div>
 </template>
 
