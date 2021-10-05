@@ -2,7 +2,7 @@
   <div>
     <Card>
       <template #title>
-        Register
+        登録
       </template>
       <template #content>
         <div class="fields">
