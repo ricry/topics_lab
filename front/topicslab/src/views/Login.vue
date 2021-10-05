@@ -95,4 +95,7 @@ export default {
   text-align: center;
   margin-top: 20px;
 }
+span {
+  color: red;
+}
 </style>
