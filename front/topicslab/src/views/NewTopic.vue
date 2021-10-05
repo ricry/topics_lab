@@ -5,18 +5,26 @@
     </template>
     <template #content>
       <div class="p-field">
+<<<<<<< Updated upstream
         <label for="title">トピックのタイトル</label>
+=======
+        <label for="title">トピックタイトル</label>
+>>>>>>> Stashed changes
         <InputText v-model="title" id="title" type="text" aria-describedby="title-help" />
         <small id="title-help">タイトルを入力してください。</small>
         <p>{{messages.title}}</p>
       </div>
       <div class="p-field">
+<<<<<<< Updated upstream
         <label for="title">トピックの内容</label>
+=======
+        <label for="title">トピック内容</label>
+>>>>>>> Stashed changes
         <Textarea v-model="body" :autoResize="true" rows="10" />
         <p>{{messages.body}}</p>
       </div>
       <div class="p-field">
-        <Button icon="pi pi-check" label="Save" v-on:click="submit" />
+        <Button icon="pi pi-check" label="保存" v-on:click="submit" />
         <p>{{messages.submit}}</p>
       </div>
     </template>
