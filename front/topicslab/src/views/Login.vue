@@ -2,7 +2,7 @@
   <div>
     <Card>
       <template #title>
-        Login
+        ログイン
       </template>
       <template #content>
         <div class="fields">
@@ -16,11 +16,11 @@
           </div>
         </div>
         <span>{{message}}</span>
-        <div class="register-link">
-          <router-link to="/Register">ユーザー登録</router-link>
-        </div>
         <div class="p-field">
-          <Button icon="pi pi-check" label="Login" v-on:click="login" />
+          <Button icon="pi pi-check" label="ログイン" v-on:click="login" />
+        </div>
+        <div class="register-link">
+          <router-link to="/Register">ユーザー登録されていない方はこちら</router-link>
         </div>
       </template>
     </Card>
@@ -93,6 +93,7 @@ export default {
 }
 .register-link {
   text-align: center;
+  margin-top: 20px;
 }
 span {
   color: red;
