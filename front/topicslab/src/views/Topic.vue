@@ -10,6 +10,15 @@
         </div>
       </template>
       <template #footer>
+        <div class="like-btn">
+          <span class="like-btn__text">{{ topic.likes_count }}</span>
+          <Button
+            icon="pi pi-heart"
+            class="like-icon p-button-rounded p-button-help"
+            v-on:click="isActive = !isActive"
+            v-bind:class="classColorSet"
+          />
+        </div>
         <span>
           <router-link :to="`/user/${user.id}`">{{user.name}}</router-link>
         </span>
@@ -36,7 +45,8 @@ export default {
       topic: {},
       user: {},
       comments: [],
-      id: null
+      id: null,
+      isActive:true
     }
   },
   mounted () {
@@ -46,6 +56,14 @@ export default {
     }
     this.getTopic()
   },
+  computed:{
+ 　classColorSet: function(){
+ 　　return {
+　　　	before:this.isActive,
+ 　　　 after: !this.isActive
+　　　}　
+ 　}
+　},
   methods: {
     getTopic () {
       axios.get('/sanctum/csrf-cookie')
@@ -83,5 +101,12 @@ export default {
 .p-card-footer span {
   text-align: right;
   display: block;
+}
+.before {
+  background-color: lightgray;
+  border: none;
+}
+.after {
+  background-color: #c94297;
 }
 </style>
