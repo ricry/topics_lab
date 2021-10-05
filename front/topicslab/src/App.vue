@@ -74,5 +74,6 @@ body {
   text-align: center;
   background-color: black;
   color: white;
+  bottom: 0;
 }
 </style>

@@ -19,6 +19,9 @@
         <div class="p-field">
           <Button icon="pi pi-check" label="ログイン" v-on:click="login" />
         </div>
+        <div class="register-link">
+          <router-link to="/Register">ユーザー登録されていない方はこちら</router-link>
+        </div>
       </template>
     </Card>
   </div>
@@ -87,5 +90,9 @@ export default {
       width: 100%;
     }
   }
+}
+.register-link {
+  text-align: center;
+  margin-top: 20px;
 }
 </style>
