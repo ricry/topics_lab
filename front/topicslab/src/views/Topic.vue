@@ -46,7 +46,7 @@ export default {
       user: {},
       comments: [],
       id: null,
-      isActive:true
+      isActive: true
     }
   },
   mounted () {
@@ -56,14 +56,14 @@ export default {
     }
     this.getTopic()
   },
-  computed:{
- 　classColorSet: function(){
- 　　return {
-　　　	before:this.isActive,
- 　　　 after: !this.isActive
-　　　}　
- 　}
-　},
+  computed: {
+    classColorSet: function () {
+      return {
+        before: this.isActive,
+        after: !this.isActive
+      }
+    }
+  },
   methods: {
     getTopic () {
       axios.get('/sanctum/csrf-cookie')
