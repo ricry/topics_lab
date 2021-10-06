@@ -28,7 +28,7 @@ export default {
   },
   mounted () {
     if (localStorage.getItem('authenticated') !== 'true') {
-      this.$router.push('login')
+      this.$router.push('/login')
       return
     }
 
@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     toNewTopic () {
-      this.$router.push('topic')
+      this.$router.push('/topic')
     },
     logout () {
       axios.get('/sanctum/csrf-cookie')
