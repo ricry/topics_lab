@@ -53,6 +53,13 @@ export default {
     this.id = this.$route.params.id
     if (!this.id) {
       alert('不正なIDです。')
+      this.$router.push('/login')
+      return
+    }
+    if (localStorage.getItem('authenticated') !== 'true') {
+      alert('ログインしてください。')
+      this.$router.push('/login')
+      return
     }
     this.getTopic()
   },
