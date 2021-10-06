@@ -1,18 +1,20 @@
 <template>
-  <div id="nav">
-    <router-link to="/">ホーム</router-link> |
-    <template v-if="authenticated">
-      <router-link to="/mypage">マイページ</router-link>
-    </template>
-    <template v-else>
-      <router-link to="/login">ログイン</router-link>
-    </template>
-  </div>
-  <div class="content">
-    <router-view/>
-  </div>
-  <div class="copyright">
-    <p><small>&copy; members.co</small></p>
+  <div class="wrapper">
+    <div id="nav">
+      <router-link to="/">ホーム</router-link> |
+      <template v-if="authenticated">
+        <router-link to="/mypage">マイページ</router-link>
+      </template>
+      <template v-else>
+        <router-link to="/login">ログイン</router-link>
+      </template>
+    </div>
+    <div class="content">
+      <router-view/>
+    </div>
+    <div class="copyright">
+      <p>&copy; members.co</p>
+    </div>
   </div>
 </template>
 
@@ -35,6 +37,7 @@ export default {
 html, body {
   height: 100%;
   min-height: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -74,5 +77,10 @@ body {
   text-align: center;
   background-color: black;
   color: white;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
+  font-size: 0.12rem;
 }
 </style>
