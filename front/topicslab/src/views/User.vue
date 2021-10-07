@@ -11,7 +11,7 @@
 
 <script>
 import axios from '@/supports/axios'
-import TabView from '@/components/TabView'
+import TabView from '@/components/TabView2'
 export default {
   name: 'user',
   components: {
