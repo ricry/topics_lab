@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\TopicLike;
+use App\Models\Topic;
 use Illuminate\Http\Request;
 
 class TopicLikeController extends Controller
@@ -35,9 +36,24 @@ class TopicLikeController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $user = $request->user();
+        $topic = Topic::find($request->topic_id);
 
+        if (TopicLike::where('topic_id', $topic->id)->where('user_id', $user->id)->exists()) {
+            return response()->json([
+                'message' => 'already exists'
+            ], 200);
+        }
+
+        $topic_like = new TopicLike();
+        $topic_like->user()->associate($user);
+        $topic_like->topic()->associate($topic);
+        $topic_like->save();
+
+        return response()->json([
+            'message' => 'success'
+        ], 201);
+    }
     /**
      * Display the specified resource.
      *
