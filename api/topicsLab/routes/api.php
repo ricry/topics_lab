@@ -43,7 +43,7 @@ Route::middleware('auth:sanctum')->get('/topic/{topic}', [
     'show'
 ]);
 
-Route::middleware('auth:sanctum')->get('/topic_likes/create', [
+Route::middleware('auth:sanctum')->post('/topicLike/create', [
     App\Http\Controllers\TopicLikeController::class,
     'store'
 ]);
