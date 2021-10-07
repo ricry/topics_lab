@@ -17,6 +17,7 @@
             class="like-icon p-button-rounded p-button-help"
             v-on:click="isActive = !isActive"
             v-bind:class="classColorSet"
+            @click="toggle"
           />
         </div>
         <span>
@@ -96,9 +97,33 @@ export default {
     },
     receiveComment (comment) {
       this.comments.push(comment)
+    },
+    toggle (isActive) {
+      if (!isActive) {
+        axios.post('/api/topicLike/create', {
+          topic_id: this.id
+        })
+          .then((res) => {
+            console.log(res)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      } else {
+        axios.post('/api/topicLike/destroy', {
+          topic_id: this.id
+        })
+          .then((res) => {
+            console.log(res)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      }
     }
   }
 }
+
 </script>
 
 <style scoped>
