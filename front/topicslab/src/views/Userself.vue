@@ -56,7 +56,18 @@ export default {
         })
     },
     withdraw () {
-      //
+      axios.get('/sanctum/csrf-cookie')
+        .then(() => {
+          axios.post('/api/withdraw')
+            .then(res => {
+              console.log(res)
+              localStorage.setItem('authenticated', 'false')
+              this.$router.push('/')
+            })
+            .catch(err => {
+              console.log(err)
+            })
+        })
     },
     getUser () {
       axios.get('/sanctum/csrf-cookie')
