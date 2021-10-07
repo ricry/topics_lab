@@ -1,10 +1,19 @@
 <template>
   <div>
-    <Card>
-      <template #content>
-        {{user.name}}
-      </template>
-    </Card>
+    <div v-if="!user.name">
+      <Card>
+        <template #content>
+          <Skeleton width="15%" height="20px"></Skeleton>
+        </template>
+      </Card>
+    </div>
+    <div v-else>
+      <Card>
+        <template #content>
+          {{user.name}}
+        </template>
+      </Card>
+    </div>
   </div>
 </template>
 

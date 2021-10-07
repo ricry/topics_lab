@@ -5,7 +5,12 @@
         マイページ
       </template>
       <template #content>
-        {{user.name}}
+        <div v-if="!user.name">
+          <Skeleton width="15%" height="20px"></Skeleton>
+        </div>
+        <div v-else>
+          {{user.name}}
+        </div>
       </template>
       <template #footer>
         <Button label="トピックを作成" v-on:click="toNewTopic" />

@@ -1,31 +1,61 @@
 <template>
   <div>
-    <Card>
-      <template #title>
-        {{topic.title}}
-      </template>
-      <template #content>
-        <div class="body-text">
-          {{topic.body}}
-        </div>
-      </template>
-      <template #footer>
-        <div class="like-btn">
-          <span class="like-btn__text">{{ topic.likes_count }}</span>
-          <Button
-            icon="pi pi-heart"
-            class="like-icon p-button-rounded p-button-help"
-            v-on:click="isActive = !isActive"
-            v-bind:class="classColorSet"
-          />
-        </div>
-        <span>
-          <router-link :to="`/user/${user.id}`">{{user.name}}</router-link>
-        </span>
-      </template>
-    </Card>
-    <Comments :comments="this.comments" />
-    <CommentForm :topicId="this.topic.id" @sentComment="receiveComment" />
+    <div v-if="comments == 0">
+      <Card>
+        <template #title>
+          <Skeleton width="30%" height="30px"></Skeleton>
+        </template>
+        <template #content>
+          <div class="body-text">
+            <Skeleton width="60%" height="40px"></Skeleton>
+          </div>
+        </template>
+        <template #footer>
+          <div class="like-btn">
+            <span class="like-btn__text">{{ topic.likes_count }}</span>
+            <Button
+              icon="pi pi-heart"
+              class="like-icon p-button-rounded p-button-help"
+              v-on:click="isActive = !isActive"
+              v-bind:class="classColorSet"
+            />
+          </div>
+          <span>
+            <router-link :to="`/user/${user.id}`"><Skeleton class="dummy-name" width="40px" height="10px"></Skeleton></router-link>
+          </span>
+        </template>
+      </Card>
+      <Comments :comments="this.comments" />
+      <CommentForm :topicId="this.topic.id" @sentComment="receiveComment" />
+    </div>
+    <div v-else>
+      <Card>
+        <template #title>
+          {{topic.title}}
+        </template>
+        <template #content>
+          <div class="body-text">
+            {{topic.body}}
+          </div>
+        </template>
+        <template #footer>
+          <div class="like-btn">
+            <span class="like-btn__text">{{ topic.likes_count }}</span>
+            <Button
+              icon="pi pi-heart"
+              class="like-icon p-button-rounded p-button-help"
+              v-on:click="isActive = !isActive"
+              v-bind:class="classColorSet"
+            />
+          </div>
+          <span>
+            <router-link :to="`/user/${user.id}`">{{user.name}}</router-link>
+          </span>
+        </template>
+      </Card>
+      <Comments :comments="this.comments" />
+      <CommentForm :topicId="this.topic.id" @sentComment="receiveComment" />
+    </div>
   </div>
 </template>
 
@@ -115,5 +145,8 @@ export default {
 }
 .after {
   background-color: #c94297;
+}
+.dummy-name {
+  margin: 0 0 0 auto;
 }
 </style>
