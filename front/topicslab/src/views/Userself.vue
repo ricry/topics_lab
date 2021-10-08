@@ -11,6 +11,7 @@
         <Button label="トピックを作成" v-on:click="toNewTopic" />
         <Button label="ログアウト" class="p-button-warning" v-on:click="logout" />
         <Button label="退会する" class="p-button-danger" v-on:click="withdraw" />
+        <TabView :tabview="this.tabview" />
       </template>
     </Card>
   </div>
@@ -18,9 +19,12 @@
 
 <script>
 import axios from '@/supports/axios'
-
+import TabView from '@/components/TabView2'
 export default {
   name: 'Userself',
+  components: {
+    TabView
+  },
   data () {
     return {
       user: {}
@@ -31,7 +35,6 @@ export default {
       this.$router.push('/login')
       return
     }
-
     this.getUser()
   },
   methods: {
