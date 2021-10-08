@@ -32,14 +32,14 @@ export default {
   },
   data () {
     return {
-      isActive: true
+      isActive: false
     }
   },
   computed: {
     classColorSet: function () {
       return {
-        before: this.isActive,
-        after: !this.isActive
+        'comment-like--active': this.isActive,
+        'comment-like--inactive': !this.isActive
       }
     }
   }
@@ -54,11 +54,11 @@ export default {
 .comment-text {
   white-space:pre-wrap;
 }
-.before {
+.comment-like--inactive {
   background-color: lightgray;
   border: none;
 }
-.after {
+.comment-like--active {
   background-color: #c94297;
 }
 .comment-wrap {

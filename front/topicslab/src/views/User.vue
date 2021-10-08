@@ -1,21 +1,33 @@
 <template>
   <div>
-    <Card>
-      <template #content>
-        {{user.name}}
-      </template>
-    </Card>
+    <div v-if="!user.name">
+      <Card>
+        <template #content>
+          <Skeleton width="15%" height="20px"></Skeleton>
+        </template>
+      </Card>
+    </div>
+    <div v-else>
+      <Card>
+        <template #content>
+          {{user.name}}
+          <TabView :tabview="this.tabview" />
+        </template>
+      </Card>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from '@/supports/axios'
-
+import TabView from '@/components/TabView2'
 export default {
   name: 'user',
+  components: {
+    TabView
+  },
   data () {
     return {
-      id: null,
       user: {}
     }
   },
@@ -25,7 +37,6 @@ export default {
       this.$router.push('/login')
       return
     }
-
     this.id = this.$route.params.id
     if (!this.id) {
       alert('不正なIDです。')
