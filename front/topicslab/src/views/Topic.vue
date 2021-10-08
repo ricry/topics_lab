@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="comments == 0">
+    <div v-if="!topic.title">
       <Card>
         <template #title>
           <Skeleton width="30%" height="30px"></Skeleton>
