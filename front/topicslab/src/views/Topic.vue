@@ -15,7 +15,6 @@
           <Button
             icon="pi pi-heart"
             class="like-icon p-button-rounded p-button-help"
-            v-on:click="isActive = !isActive"
             v-bind:class="classColorSet"
             @click="toggle"
           />
@@ -47,7 +46,7 @@ export default {
       user: {},
       comments: [],
       id: null,
-      isActive: true
+      isActive: false
     }
   },
   mounted () {
@@ -67,8 +66,8 @@ export default {
   computed: {
     classColorSet: function () {
       return {
-        before: this.isActive,
-        after: !this.isActive
+        before: !this.isActive,
+        after: this.isActive
       }
     }
   },
@@ -98,26 +97,32 @@ export default {
     receiveComment (comment) {
       this.comments.push(comment)
     },
-    toggle (isActive) {
-      if (!isActive) {
-        axios.post('/api/topicLike/create', {
-          topic_id: this.id
-        })
-          .then((res) => {
-            console.log(res)
-          })
-          .catch((err) => {
-            console.log(err)
+    toggle () {
+      if (!this.isActive) {
+        axios.get('/sanctum/csrf-cookie')
+          .then(() => {
+            axios.post('/api/topicLike/create', {
+              topic_id: this.id
+            })
+              .then((res) => {
+                console.log(res)
+              })
+              .catch((err) => {
+                console.log(err)
+              })
           })
       } else {
-        axios.post('/api/topicLike/destroy', {
-          topic_id: this.id
-        })
-          .then((res) => {
-            console.log(res)
-          })
-          .catch((err) => {
-            console.log(err)
+        axios.get('/sanctum/csrf-cookie')
+          .then(() => {
+            axios.post('/api/topicLike/destroy', {
+              topic_id: this.id
+            })
+              .then((res) => {
+                console.log(res)
+              })
+              .catch((err) => {
+                console.log(err)
+              })
           })
       }
     }
