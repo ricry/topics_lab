@@ -1,6 +1,15 @@
 <template>
   <div>
-    <Card v-for="topic in topics" :key="topic.id">
+    <div v-if="topics == 0">
+      <Card>
+        <template #content>
+          <Skeleton width="30%" height="20px"></Skeleton>
+          <Skeleton class="dummy-title" width="40%" height="40px"></Skeleton>
+        </template>
+      </Card>
+    </div>
+    <div v-else>
+      <Card v-for="topic in topics" :key="topic.id">
         <template #content>
           <span class="topic-date">投稿日：{{moment(topic.created_at)}}</span>
           <h2>
@@ -9,7 +18,8 @@
             </router-link>
           </h2>
         </template>
-    </Card>
+      </Card>
+    </div>
   </div>
 </template>
 
@@ -60,5 +70,8 @@ export default {
   .topic-date {
     font-size: 80%;
   }
+}
+.dummy-title {
+  margin-top: 20px;
 }
 </style>
