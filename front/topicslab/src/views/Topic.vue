@@ -76,7 +76,7 @@ export default {
       user: {},
       comments: [],
       id: null,
-      isActive: true
+      isActive: false
     }
   },
   mounted () {
@@ -96,8 +96,8 @@ export default {
   computed: {
     classColorSet: function () {
       return {
-        before: this.isActive,
-        after: !this.isActive
+        'like-button--active': this.isActive,
+        'like-button--inactive': !this.isActive
       }
     }
   },
@@ -139,11 +139,11 @@ export default {
   text-align: right;
   display: block;
 }
-.before {
+.like-button--inactive {
   background-color: lightgray;
   border: none;
 }
-.after {
+.like-button--active {
   background-color: #c94297;
 }
 .dummy-name {
