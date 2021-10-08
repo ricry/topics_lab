@@ -28,6 +28,11 @@ Route::post('/register', [
     'store'
 ]);
 
+Route::middleware('auth:sanctum')->post('/withdraw', [
+    App\Http\Controllers\UserController::class,
+    'destroy'
+]);
+
 Route::post('/logout', [
     App\Http\Controllers\LoginController::class,
     'logout'
