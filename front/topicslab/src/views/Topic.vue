@@ -125,6 +125,7 @@ export default {
               })
           })
       }
+      this.isActive = !this.isActive
     }
   }
 }
