@@ -4,6 +4,7 @@
       <Card>
         <template #content>
           <Skeleton width="15%" height="20px"></Skeleton>
+          <TabView :topics="this.topics" :comments="this.comments" />
         </template>
       </Card>
     </div>
@@ -11,7 +12,12 @@
       <Card>
         <template #content>
           {{user.name}}
-          <TabView :tabview="this.tabview" />
+          <div v-if="this.loaded==false">
+            <TabView :topics="this.topics" :comments="this.comments" :loaded="false" />
+          </div>
+          <div v-else>
+            <TabView :topics="this.topics" :comments="this.comments" :loaded="true" />
+          </div>
         </template>
       </Card>
     </div>
@@ -28,7 +34,10 @@ export default {
   },
   data () {
     return {
-      user: {}
+      user: {},
+      topics: [],
+      comments: [],
+      loaded: false
     }
   },
   mounted () {
@@ -54,6 +63,11 @@ export default {
               console.log(res)
               if (res.status === 200) {
                 this.user = res.data
+                this.topics.splice(0)
+                this.topics.push(...this.user.topics)
+                this.loaded = true
+                this.comments.splice(0)
+                this.comments.push(...this.user.comments)
               } else {
                 console.log('取得失敗')
               }
