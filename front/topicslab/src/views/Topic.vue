@@ -1,5 +1,33 @@
 <template>
-  <div>
+  <div v-if="!topic.title">
+    <Card>
+      <template #title>
+        <Skeleton width="30%" height="30px"></Skeleton>
+      </template>
+      <template #content>
+        <div class="body-text">
+          <Skeleton width="60%" height="40px"></Skeleton>
+        </div>
+      </template>
+      <template #footer>
+        <div class="like-btn">
+          <span class="like-btn__text">{{ topic.likes_count }}</span>
+          <Button
+            icon="pi pi-heart"
+            class="like-icon p-button-rounded p-button-help"
+            v-bind:class="classColorSet"
+            @click="toggle"
+          />
+        </div>
+        <span>
+          <router-link :to="`/user/${user.id}`"><Skeleton class="dummy-name" width="40px" height="10px"></Skeleton></router-link>
+        </span>
+      </template>
+    </Card>
+    <Comments :comments="this.comments" />
+    <CommentForm :topicId="this.topic.id" @sentComment="receiveComment" />
+  </div>
+  <div v-else>
     <Card>
       <template #title>
         {{topic.title}}
@@ -27,6 +55,7 @@
     <Comments :comments="this.comments" />
     <CommentForm :topicId="this.topic.id" @sentComment="receiveComment" />
   </div>
+
 </template>
 
 <script>
@@ -66,8 +95,8 @@ export default {
   computed: {
     classColorSet: function () {
       return {
-        before: !this.isActive,
-        after: this.isActive
+        'like-button--active': this.isActive,
+        'like-button--inactive': !this.isActive
       }
     }
   },
