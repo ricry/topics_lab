@@ -2,7 +2,7 @@
   <div>
     <Card>
       <template #title>
-        Login
+        ログイン
       </template>
       <template #content>
         <div class="fields">
@@ -17,7 +17,10 @@
         </div>
         <span>{{message}}</span>
         <div class="p-field">
-          <Button icon="pi pi-check" label="Login" v-on:click="login" />
+          <Button icon="pi pi-check" label="ログイン" v-on:click="login" />
+        </div>
+        <div class="register-link">
+          <router-link to="/Register">ユーザー登録されていない方はこちら</router-link>
         </div>
       </template>
     </Card>
@@ -48,6 +51,7 @@ export default {
             .then((res) => {
               if (res.status === 200) {
                 console.log('ログイン成功')
+                this.$router.push('/')
                 localStorage.setItem('authenticated', 'true')
               } else {
                 this.message = 'ログインに失敗しました。'
@@ -87,5 +91,12 @@ export default {
       width: 100%;
     }
   }
+}
+.register-link {
+  text-align: center;
+  margin-top: 20px;
+}
+span {
+  color: red;
 }
 </style>

@@ -10,6 +10,15 @@
         </div>
       </template>
       <template #footer>
+        <div class="like-btn">
+          <span class="like-btn__text">{{ topic.likes_count }}</span>
+          <Button
+            icon="pi pi-heart"
+            class="like-icon p-button-rounded p-button-help"
+            v-on:click="isActive = !isActive"
+            v-bind:class="classColorSet"
+          />
+        </div>
         <span>
           <router-link :to="`/user/${user.id}`">{{user.name}}</router-link>
         </span>
@@ -36,15 +45,31 @@ export default {
       topic: {},
       user: {},
       comments: [],
-      id: null
+      id: null,
+      isActive: false
     }
   },
   mounted () {
     this.id = this.$route.params.id
     if (!this.id) {
       alert('不正なIDです。')
+      this.$router.push('/login')
+      return
+    }
+    if (localStorage.getItem('authenticated') !== 'true') {
+      alert('ログインしてください。')
+      this.$router.push('/login')
+      return
     }
     this.getTopic()
+  },
+  computed: {
+    classColorSet: function () {
+      return {
+        'like-button--active': this.isActive,
+        'like-button--inactive': !this.isActive
+      }
+    }
   },
   methods: {
     getTopic () {
@@ -83,5 +108,12 @@ export default {
 .p-card-footer span {
   text-align: right;
   display: block;
+}
+.like-button--inactive {
+  background-color: lightgray;
+  border: none;
+}
+.like-button--active {
+  background-color: #c94297;
 }
 </style>
