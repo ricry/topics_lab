@@ -16,8 +16,8 @@
             <Button
               icon="pi pi-heart"
               class="like-icon p-button-rounded p-button-help"
-              v-on:click="isActive = !isActive"
               v-bind:class="classColorSet"
+              @click="toggle"
             />
           </div>
           <span>
@@ -126,9 +126,40 @@ export default {
     },
     receiveComment (comment) {
       this.comments.push(comment)
+    },
+    toggle () {
+      if (!this.isActive) {
+        axios.get('/sanctum/csrf-cookie')
+          .then(() => {
+            axios.post('/api/topicLike/create', {
+              topic_id: this.id
+            })
+              .then((res) => {
+                console.log(res)
+              })
+              .catch((err) => {
+                console.log(err)
+              })
+          })
+      } else {
+        axios.get('/sanctum/csrf-cookie')
+          .then(() => {
+            axios.post('/api/topicLike/destroy', {
+              topic_id: this.id
+            })
+              .then((res) => {
+                console.log(res)
+              })
+              .catch((err) => {
+                console.log(err)
+              })
+          })
+      }
+      this.isActive = !this.isActive
     }
   }
 }
+
 </script>
 
 <style scoped>
