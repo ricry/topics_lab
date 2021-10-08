@@ -4,6 +4,7 @@
       <Card>
         <template #content>
           <Skeleton width="15%" height="20px"></Skeleton>
+          <TabView :topics="this.topics" :comments="this.comments" />
         </template>
       </Card>
     </div>
@@ -11,7 +12,7 @@
       <Card>
         <template #content>
           {{user.name}}
-          <TabView :tabview="this.tabview" />
+          <TabView :topics="this.topics" :comments="this.comments" />
         </template>
       </Card>
     </div>
@@ -28,7 +29,9 @@ export default {
   },
   data () {
     return {
-      user: {}
+      user: {},
+      topics: [],
+      comments: []
     }
   },
   mounted () {
@@ -54,7 +57,10 @@ export default {
               console.log(res)
               if (res.status === 200) {
                 this.user = res.data
-                this.topics = this.user.topics
+                this.topics.splice(0)
+                this.topics.push(...this.user.topics)
+                this.comments.splice(0)
+                this.comments.push(...this.user.comments)
               } else {
                 console.log('取得失敗')
               }

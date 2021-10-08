@@ -53,7 +53,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return User::with('topics')->find($user->id);
+        return User::with('topics', 'comments.user')->find($user->id);
         // return $user;
     }
 

@@ -2,59 +2,55 @@
   <div id="tab">
     <TabView ref="tabview1">
       <TabPanel header="トピック">
-        <template #title>
-            {{topic.title}}
-          </template>
-          <template #content>
-            <div class="body-text">
-              {{topic.body}}
-            </div>
-          </template>
+        <div v-if="topics == 0">
+          <Card>
+            <template #content>
+              <Skeleton width="30%" height="20px"></Skeleton>
+              <Skeleton class="dummy-title" width="40%" height="40px"></Skeleton>
+            </template>
+          </Card>
+        </div>
+        <div v-else>
+          <Card v-for="topic in topics" :key="topic.id">
+            <template #content>
+              <span class="topic-date">投稿日：{{moment(topic.created_at)}}</span>
+              <h2>
+                <router-link :to="`/topic/${topic.id}`">
+                  {{topic.title}}
+                </router-link>
+              </h2>
+            </template>
+          </Card>
+        </div>
       </TabPanel>
       <TabPanel header="コメント">
-        <Comments :comments="this.comments" />
+        <Comments :comments="comments" />
       </TabPanel>
     </TabView>
   </div>
 </template>
 
 <script>
-import axios from '@/supports/axios'
 import Comments from '@/components/Comments'
+import moment from 'moment'
+
 export default {
   components: {
     Comments
   },
+  props: {
+    comments: Array,
+    topics: Array
+  },
   data () {
     return {
       user: {},
-      topic: {},
-      comments: [],
       id: null
     }
   },
   methods: {
-    getTopic () {
-      axios.get('/sanctum/csrf-cookie')
-        .then(() => {
-          axios.get(`/api/topic/${this.id}`)
-            .then((res) => {
-              if (res.status === 200) {
-                this.topic = res.data
-                this.user = this.topic.user
-                this.comments.splice(0)
-                this.comments.push(...this.topic.comments)
-              } else {
-                console.log('取得失敗')
-              }
-            })
-            .catch((err) => {
-              console.log(err)
-            })
-        })
-        .catch((err) => {
-          alert(err)
-        })
+    moment: function (date) {
+      return moment(date).format('YYYY/MM/DD HH:mm:SS')
     }
   }
 }
