@@ -6,17 +6,26 @@
       </template>
       <template #content>
         <div v-if="!user.name">
-          <Skeleton width="15%" height="20px"></Skeleton>
+          <Card>
+            <template #content>
+              <Skeleton width="15%" height="20px"></Skeleton>
+              <TabView :topics="this.topics" :comments="this.comments" />
+            </template>
+          </Card>
         </div>
         <div v-else>
-          {{user.name}}
+          <Card>
+            <template #content>
+              {{user.name}}
+              <TabView :topics="this.topics" :comments="this.comments" />
+            </template>
+          </Card>
         </div>
       </template>
       <template #footer>
         <Button label="トピックを作成" v-on:click="toNewTopic" />
         <Button label="ログアウト" class="p-button-warning" v-on:click="logout" />
         <Button label="退会する" class="p-button-danger" v-on:click="withdraw" />
-        <TabView :tabview="this.tabview" />
       </template>
     </Card>
   </div>
@@ -32,7 +41,9 @@ export default {
   },
   data () {
     return {
-      user: {}
+      user: {},
+      topics: [],
+      comments: []
     }
   },
   mounted () {
@@ -73,7 +84,10 @@ export default {
             .then((res) => {
               if (res.status === 200) {
                 this.user = res.data
-                this.topics = this.user.topics
+                this.topics.splice(0)
+                this.topics.push(...this.user.topics)
+                this.comments.splice(0)
+                this.comments.push(...this.user.comments)
               } else {
                 console.log('取得失敗')
               }
