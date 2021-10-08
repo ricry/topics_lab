@@ -17,7 +17,12 @@
           <Card>
             <template #content>
               {{user.name}}
-              <TabView :topics="this.topics" :comments="this.comments" />
+              <div v-if="this.loaded==false">
+                <TabView :topics="this.topics" :comments="this.comments" :loaded="false" />
+              </div>
+              <div v-else>
+                <TabView :topics="this.topics" :comments="this.comments" :loaded="true" />
+              </div>
             </template>
           </Card>
         </div>
@@ -43,7 +48,8 @@ export default {
     return {
       user: {},
       topics: [],
-      comments: []
+      comments: [],
+      loaded: false
     }
   },
   mounted () {
@@ -86,6 +92,7 @@ export default {
                 this.user = res.data
                 this.topics.splice(0)
                 this.topics.push(...this.user.topics)
+                this.loaded = true
                 this.comments.splice(0)
                 this.comments.push(...this.user.comments)
               } else {

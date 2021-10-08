@@ -5,8 +5,13 @@
         <div v-if="topics == 0">
           <Card>
             <template #content>
-              <Skeleton width="30%" height="20px"></Skeleton>
-              <Skeleton class="dummy-title" width="40%" height="40px"></Skeleton>
+              <div v-if="loaded==false">
+                <Skeleton width="30%" height="20px"></Skeleton>
+                <Skeleton class="dummy-title" width="40%" height="40px"></Skeleton>
+              </div>
+              <div v-else>
+                <p>投稿したトピックはありません</p>
+              </div>
             </template>
           </Card>
         </div>
@@ -24,7 +29,12 @@
         </div>
       </TabPanel>
       <TabPanel header="コメント">
-        <Comments :comments="comments" />
+        <div v-if="comments==0">
+          <p>投稿したコメントはありません</p>
+        </div>
+        <div v-else>
+          <Comments :comments="comments" />
+        </div>
       </TabPanel>
     </TabView>
   </div>
@@ -40,7 +50,11 @@ export default {
   },
   props: {
     comments: Array,
-    topics: Array
+    topics: Array,
+    loaded: {
+      type: Boolean,
+      default: false
+    }
   },
   data () {
     return {
@@ -65,6 +79,17 @@ export default {
   display: block;
 }
 #tab {
+  margin-top: 20px;
+}
+.p-card.p-component {
+  margin-bottom: 20px;
+}
+.p-card-content {
+  .topic-date {
+    font-size: 80%;
+  }
+}
+.dummy-title {
   margin-top: 20px;
 }
 </style>
