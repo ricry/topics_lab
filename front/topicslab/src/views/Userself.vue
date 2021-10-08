@@ -73,6 +73,7 @@ export default {
             .then((res) => {
               if (res.status === 200) {
                 this.user = res.data
+                this.topics = this.user.topics
               } else {
                 console.log('取得失敗')
               }
